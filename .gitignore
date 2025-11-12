@@ -1,6 +1,7 @@
 # Build output
 bin/
 obj/
+DailyPlanner/*.sln
 
 # macOS system files
 .DS_Store
