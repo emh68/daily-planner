@@ -1,6 +1,7 @@
 * {
     color: var(--dark);
     background-color: var(--light);
+    font-family: 'ABeeZee', Arial;
 }
 
 .container {
@@ -8,9 +9,9 @@
     --light-base: #406973;
     --dark-base: #163c40;
     --light: #f0f2f1;
-    --accent: #bf967e
+    --accent: #bf967e;
 
-    margin: 10px auto;
+    margin: 20px auto;
     display: flex;
     flex-direction: column;
     width: 80%;
@@ -35,5 +36,5 @@
 .title-bar > label {
     font-size: 1.5em;
     margin: 0 15px;
-    font-weight: 500;
+    font-weight: 700;
 }
