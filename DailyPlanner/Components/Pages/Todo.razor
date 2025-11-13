@@ -3,14 +3,12 @@
 
 <h3>Todo (@todos.Count(todo => !todo.IsDone))</h3>
 
-<ul>
+<ul style="list-style-type: none;">
     @foreach (var todo in todos)
     {
         <li>
-            <TaskItem title="@todo.Title" desc="" @bind-IsDone="@todo.IsDone" />
-            @* <input type="checkbox" @bind="todo.IsDone" /> *@
-            <input @bind="todo.Title" />
-            <button @onclick="() => DeleteTodo(todo)">Delete</button>
+            <TaskItem @bind-Title="@todo.Title" @bind-IsDone="@todo.IsDone" OnDelete="() => DeleteTodo(todo)" />
+            @* <input @bind="todo.Title" /> *@
         </li>
     }
 </ul>
