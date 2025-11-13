@@ -2,6 +2,7 @@
     color: var(--dark);
     background-color: var(--light);
     font-family: 'ABeeZee', Arial;
+    padding: 0;
 }
 
 .container {
@@ -11,26 +12,38 @@
     --light: #f0f2f1;
     --accent: #bf967e;
 
-    margin: 20px auto;
     display: flex;
-    flex-direction: column;
-    width: 80%;
-    padding: 10px;
-    box-shadow: 0 0 10px rgb(0, 0, 0, 0.3);
+    flex-direction: column; 
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    max-width: 650px;
 }
 
-.container > div {
-    margin: 10px;
+img {
+    border-radius: 10px;
+}
+
+.task-details {
     display: flex;
     flex-direction: row;
 }
 
-.task-body {
-    justify-content: space-between;
+.task-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.title-bar > label {
-    font-size: 1.5em;
-    margin: 0 15px;
+.task-content > h1 {
+    font-size: 1.2em;
     font-weight: 700;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 10px;
 }

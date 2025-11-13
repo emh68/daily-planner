@@ -1,12 +1,19 @@
-<link href="https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap" rel="stylesheet">
 <div class="container">
-    <div class="title-bar">
-        <input type="checkbox" id="checkbox" checked="@IsDone" @onchange="OnChange" />
-        <label for="checkbox">@Title</label>
+    <div class="task-details">
+        <div class="check-box">
+            <input type="checkbox" id="checkbox" checked="@IsDone" @onchange="OnDoneChange" />
+            <label for="checkbox"></label>
+        </div>
+        <div class="task-content">
+            <h1>@Title</h1>
+            @if (!string.IsNullOrEmpty(Desc)) {
+                <p>@Desc</p>
+            }
+        </div>
+        @* <img src="https://picsum.photos/100/100" alt="Random photo" /> *@
     </div>
-    <div class="task-body">
-        <p>@Desc</p>
-        <img src="https://picsum.photos/100/100" alt="Random photo" />
+    <div class="button-container">
+        <button @onclick="OnDeleteClick">Delete</button>
     </div>
 </div>
 
@@ -23,9 +30,16 @@
     [Parameter]
     public EventCallback<bool> IsDoneChanged { get; set; }
 
-    private async Task OnChange(ChangeEventArgs e) {
+    private async Task OnDoneChange(ChangeEventArgs e) {
         IsDone = (bool)e.Value!;
         await IsDoneChanged.InvokeAsync(IsDone);
+    }
+    
+    [Parameter]
+    public EventCallback OnDelete { get; set; }
+
+    private async Task OnDeleteClick() {
+        await OnDelete.InvokeAsync();        
     }
 
 }
