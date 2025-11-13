@@ -2,12 +2,18 @@
 <div class="container">
     <div class="title-bar">
         <input type="checkbox" id="checkbox" />
-        <label for="checkbox">Task Title Here</label>
+        <label for="checkbox">@Title</label>
     </div>
     <div class="task-body">
-        <p>
-            This is where the body of the text would go.
-        </p>
+        <p>@Desc</p>
         <img src="https://picsum.photos/100/100" alt="Random photo" />
     </div>
 </div>
+
+@code {
+    [Parameter]
+    public string Title { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Desc { get; set; } = string.Empty;
+}
