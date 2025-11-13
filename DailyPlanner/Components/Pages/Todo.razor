@@ -1,0 +1,37 @@
+@using DailyPlanner
+@rendermode InteractiveServer
+
+<h3>Todo (@todos.Count(todo => !todo.IsDone))</h3>
+
+<ul>
+    @foreach (var todo in todos)
+    {
+        <li>
+            <input type="checkbox" @bind="todo.IsDone" />
+            <input @bind="todo.Title" />
+            <button @onclick="() => DeleteTodo(todo)">Delete</button>
+        </li>
+    }
+</ul>
+
+<input @bind="newTodo" placeholder="Enter a new task..." />
+<button @onclick="AddTodo">Add todo</button>
+
+@code {
+    private List<TodoItem> todos = new();
+    private string newTodo = "";
+
+    private void AddTodo()
+    {
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+            todos.Add(new TodoItem { Title = newTodo });
+            newTodo = string.Empty;
+        }
+    }
+
+    private void DeleteTodo(TodoItem todo)
+    {
+        todos.Remove(todo);
+    }
+}
