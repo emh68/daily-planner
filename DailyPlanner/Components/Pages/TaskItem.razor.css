@@ -18,6 +18,7 @@
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     max-width: 650px;
+    margin: 25px auto;
 }
 
 img {
@@ -35,7 +36,19 @@ img {
     flex-direction: column;
 }
 
-.task-content > h1 {
+.task-content > input {
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid transparent;
+}
+
+.task-content > input:hover,
+.task-content > input:focus {
+    /* border: 1px solid var(--dark-base); */
+    background-color: #fafafa;
+}
+
+.title {
     font-size: 1.2em;
     font-weight: 700;
 }
@@ -45,5 +58,4 @@ img {
     flex-direction: row;
     justify-content: flex-end;
     gap: 15px;
-    margin-top: 10px;
 }

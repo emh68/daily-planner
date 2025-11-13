@@ -7,8 +7,8 @@
     @foreach (var todo in todos)
     {
         <li>
-            <TaskItem title="@todo.Title" @bind-IsDone="@todo.IsDone" OnDelete="() => DeleteTodo(todo)" />
-            <input @bind="todo.Title" />
+            <TaskItem @bind-Title="@todo.Title" @bind-IsDone="@todo.IsDone" OnDelete="() => DeleteTodo(todo)" />
+            @* <input @bind="todo.Title" /> *@
         </li>
     }
 </ul>

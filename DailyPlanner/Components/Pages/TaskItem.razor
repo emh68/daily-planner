@@ -5,10 +5,8 @@
             <label for="checkbox"></label>
         </div>
         <div class="task-content">
-            <h1>@Title</h1>
-            @if (!string.IsNullOrEmpty(Desc)) {
-                <p>@Desc</p>
-            }
+            <input @bind="_title" class="title" placeholder="Title (required)" />
+            <input @bind="_desc" class="description" placeholder="+ Add Description" />
         </div>
         @* <img src="https://picsum.photos/100/100" alt="Random photo" /> *@
     </div>
@@ -20,9 +18,38 @@
 @code {
     [Parameter]
     public string Title { get; set; } = string.Empty;
+    
+    [Parameter]
+    public EventCallback<string> TitleChanged { get; set; }
+
+    private string _title {
+        get => Title;
+        set {
+            if (value == null || value == "") {
+                value = Title;
+            }
+            else if (Title != value) {
+                Title = value;
+                TitleChanged.InvokeAsync(value);
+            }
+        }
+    }
 
     [Parameter]
     public string Desc { get; set; } = string.Empty;
+    
+    [Parameter]
+    public EventCallback<string> DescChanged { get; set; }
+
+    private string _desc {
+        get => Desc;
+        set {
+            if (Desc != value) {
+                Desc = value;
+                DescChanged.InvokeAsync(value);
+            }
+        }
+    }
 
     [Parameter]
     public bool IsDone { get; set; }
