@@ -51,7 +51,6 @@ main {
 }
 
 .top-row-search > button {
-    background-color: var(--dark-base);
     border-radius: 8px;
     border: none;
     aspect-ratio: 1 / 1;
