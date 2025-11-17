@@ -1,15 +1,22 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
     <main>
         <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+            <a href="#" class="logo-link">
+                <h1>
+                    <span style="color: var(--light-base)">Daily</span><span style="color: var(--dark-base)">Planner</span>
+                </h1>
+            </a>
+            <form class="top-row-search">
+                <input type="text" placeholder="Search tasks..." />
+                <button><img src="images/search-glass.webp" alt="search" /></button>
+            </form>
+            <div class="todays-date">
+                <p style="font-weight: 500">@DateTime.Now.ToString("dddd")</p>
+                <p style="color: var(--light-base)" >@DateTime.Now.ToString("MMMM d, yyyy")</p>
+            </div>
         </div>
-
         <article class="content px-4">
             @Body
         </article>
