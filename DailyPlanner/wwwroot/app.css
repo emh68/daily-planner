@@ -1,28 +1,34 @@
 :root {
-    --dark: #010a26;
     --light-base: #406973;
     --dark-base: #163c40;
     --light: #f0f2f1;
     --very-light: #fafafa;
-    --accent: #bf967e;
+    --accent: #b39888;
+    --main-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --task-font: 'ABeeZee', Arial;
+}
+
+* {
+    color: var(--dark-base);
 }
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-}
-
-a, .btn-link {
-    color: #006bb7;
+    font-family: var(--main-font);
 }
 
 .btn-primary {
-    color: #fff;
-    background-color: #1b6ec2;
-    border-color: #1861ac;
+    color: var(--very-light);
+    background-color: var(--light-base);
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: var(--dark-base);
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    background-color: var(--dark-base);
+    box-shadow: 0 0 0 0.1rem var(--very-light), 0 0 0 0.25rem var(--dark-base);
 }
 
 .content {
