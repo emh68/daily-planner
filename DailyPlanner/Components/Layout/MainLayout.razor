@@ -1,23 +1,38 @@
 ﻿@inherits LayoutComponentBase
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
+    <header class="top-row">
+        <a href="#" class="logo-link">
+            <h1>
+                <span style="color: var(--light-base)">Daily</span><span>Planner</span>
+            </h1>
+        </a>
+        <form class="search-box">
+            <input style="text" placeholder="Search tasks..." />
+            <button class="btn btn-primary">
+                <img src="images/gui/search-glass.webp" alt="Search" />
+            </button>
+        </form>
+        <a href="siteplan" class="date-link">
+            <p class="date-day">@DateTime.Now.ToString("dddd")</p>
+            <p clase="date-long">@DateTime.Now.ToString("MMMM dd, yyyy")</p>
+        </a>
+    </header>
+    <nav>
+        <div class="sidebar">
+            <div class="sidebar-background"></div>
+            <a href="" class="profile-picture">
+                <img src="https://picsum.photos/120/120" alt="Profile picture" />
+            </a>
+            <a href="" class="username">username</a>
+            <div class="nav-menu">
+                <NavMenu />
+            </div>
         </div>
-
-        <article class="content px-4">
+    </nav>
+    <main>
+        <article>
             @Body
         </article>
     </main>
-</div>
-
-<div id="blazor-error-ui" data-nosnippet>
-    An unhandled error has occurred.
-    <a href="." class="reload">Reload</a>
-    <span class="dismiss">🗙</span>
 </div>
