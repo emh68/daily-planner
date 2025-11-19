@@ -4,9 +4,14 @@
             <input type="checkbox" id="checkbox" checked="@IsDone" @onchange="OnDoneChange" />
             <label for="checkbox"></label>
         </div>
-        <div class="task-content">
+        @* <div class="task-content">
             <input @bind="_title" class="title" placeholder="Title (required)" />
             <input @bind="_desc" class="description" placeholder="+ Add Description" />
+        </div> *@
+        <div class="task-content">
+            <input @bind="_title" class="title @(IsDone ? "completed" : "")" placeholder="Title (required)" />
+            <input @bind="_desc" class="description @(IsDone ? "description-completed" : "")"
+                placeholder="+ Add Description" />
         </div>
         @* <img src="https://picsum.photos/100/100" alt="Random photo" /> *@
     </div>
@@ -18,17 +23,21 @@
 @code {
     [Parameter]
     public string Title { get; set; } = string.Empty;
-    
+
     [Parameter]
     public EventCallback<string> TitleChanged { get; set; }
 
-    private string _title {
+    private string _title
+    {
         get => Title;
-        set {
-            if (value == null || value == "") {
+        set
+        {
+            if (value == null || value == "")
+            {
                 value = Title;
             }
-            else if (Title != value) {
+            else if (Title != value)
+            {
                 Title = value;
                 TitleChanged.InvokeAsync(value);
             }
@@ -37,14 +46,17 @@
 
     [Parameter]
     public string Desc { get; set; } = string.Empty;
-    
+
     [Parameter]
     public EventCallback<string> DescChanged { get; set; }
 
-    private string _desc {
+    private string _desc
+    {
         get => Desc;
-        set {
-            if (Desc != value) {
+        set
+        {
+            if (Desc != value)
+            {
                 Desc = value;
                 DescChanged.InvokeAsync(value);
             }
@@ -57,16 +69,18 @@
     [Parameter]
     public EventCallback<bool> IsDoneChanged { get; set; }
 
-    private async Task OnDoneChange(ChangeEventArgs e) {
+    private async Task OnDoneChange(ChangeEventArgs e)
+    {
         IsDone = (bool)e.Value!;
         await IsDoneChanged.InvokeAsync(IsDone);
     }
-    
+
     [Parameter]
     public EventCallback OnDelete { get; set; }
 
-    private async Task OnDeleteClick() {
-        await OnDelete.InvokeAsync();        
+    private async Task OnDeleteClick()
+    {
+        await OnDelete.InvokeAsync();
     }
 
 }
