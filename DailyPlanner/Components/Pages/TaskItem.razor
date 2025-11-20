@@ -9,11 +9,12 @@
             <input @bind="_desc" class="description" placeholder="+ Add Description" />
         </div> *@
         <div class="task-content">
-            <input @bind="_title" class="title @(IsDone ? "completed" : "")" placeholder="Title (required)" />
+            <input @bind="_title" class="title @(IsDone ? "completed" : "")" placeholder="Title (required)"
+                disabled="@IsDone" />
             <input @bind="_desc" class="description @(IsDone ? "description-completed" : "")"
-                placeholder="+ Add Description" />
+                placeholder="+ Add Description" disabled="@IsDone" />
         </div>
-        @* <img src="https://picsum.photos/100/100" alt="Random photo" /> *@
+        @* <img src=" https://picsum.photos/100/100" alt="Random photo" /> *@
     </div>
     <div class="button-container">
         <button class="btn btn-primary" @onclick="OnDeleteClick">Delete</button>
