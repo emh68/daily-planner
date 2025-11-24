@@ -1,0 +1,32 @@
+.new-todo-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--very-light);
+    border-radius: 20px;
+    border: 1px solid lightgray;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.new-todo-container > input {
+    padding: 10px 15px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.1rem;
+}
+
+.new-todo-container > input:focus {
+    outline: none;
+}
+
+.button-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.submit-button {
+    margin: 10px;
+    margin-top: 0;
+    border-radius: 50%;
+}

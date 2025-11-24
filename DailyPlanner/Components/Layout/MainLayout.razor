@@ -1,5 +1,17 @@
 ﻿@inherits LayoutComponentBase
 
+<nav>
+    <div class="sidebar">
+        <div class="sidebar-background"></div>
+        <a href="" class="profile-picture">
+            <img src="https://picsum.photos/120/120" alt="Profile picture" />
+        </a>
+        <a href="" class="username">username</a>
+        <div class="nav-menu">
+            <NavMenu />
+        </div>
+    </div>
+</nav>
 <div class="page">
     <header class="top-row">
         <a href="#" class="logo-link">
@@ -18,18 +30,6 @@
             <p clase="date-long">@DateTime.Now.ToString("MMMM dd, yyyy")</p>
         </a>
     </header>
-    <nav>
-        <div class="sidebar">
-            <div class="sidebar-background"></div>
-            <a href="" class="profile-picture">
-                <img src="https://picsum.photos/120/120" alt="Profile picture" />
-            </a>
-            <a href="" class="username">username</a>
-            <div class="nav-menu">
-                <NavMenu />
-            </div>
-        </div>
-    </nav>
     <main>
         <article>
             @Body
