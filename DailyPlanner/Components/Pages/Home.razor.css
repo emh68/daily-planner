@@ -1,0 +1,24 @@
+h1 {
+    margin: 20px;
+    font-size: 2.2rem;
+}
+
+.widget-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
+    gap: 50px;
+    height: 100%;
+}
+
+.widget-grid > div {
+    background-color: var(--very-light);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 16px;
+    border: 1px solid lightgray;
+    padding: 15px;
+}
+
+.todo-widget-container {
+    grid-row: 1 / 3;
+}

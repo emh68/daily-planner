@@ -2,7 +2,7 @@
 @using DailyPlanner
 @rendermode InteractiveServer
 
-<h3>Todo (@todos.Count(todo => !todo.IsDone))</h3>
+<h3>To-Do (@todos.Count(todo => !todo.IsDone))</h3>
 
 <div class="new-todo-container">
     <input @bind="newTodo" placeholder="Enter a new task..." />

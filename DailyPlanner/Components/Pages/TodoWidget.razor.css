@@ -1,0 +1,28 @@
+.title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h3 {
+    font-size: 1.7rem;
+}
+
+a {
+    text-decoration: none;
+    color: gray;
+    padding: 3px 5px;
+    border-radius: 10px;
+}
+
+a:hover {
+    color: var(--very-light);
+    background-color: var(--light-base);
+}
+
+p {
+    color: gray;
+    font-style: italic;
+    margin: 100px auto;
+    text-align: center;
+}
