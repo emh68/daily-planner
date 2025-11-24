@@ -1,0 +1,29 @@
+.new-todo-container {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: var(--very-light);
+    border-radius: 20px;
+    border: 1px solid lightgray;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+    margin: 20px auto;
+    max-width: 600px;
+}
+
+.new-todo-container > input {
+    width: 100%;
+    margin: 10px 15px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.1rem;
+}
+
+.new-todo-container > input:focus {
+    outline: none;
+}
+
+.new-todo-container > button {
+    margin: 10px;
+    margin-top: 0;
+    margin-left: auto;
+    border-radius: 50%;
+}
