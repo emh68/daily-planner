@@ -1,4 +1,4 @@
-@using DailyPlanner
+@inject TodoState TodoState
 @rendermode InteractiveServer
 
 <div class="title-container">
@@ -6,4 +6,11 @@
     <a href="todo" class="btn">+ New To-Do</a>
 </div>
 
-<p>Nothing to show. You must be all caught up!</p>
+@if (TodoState.Todos.Count == 0) {
+    <p>Nothing to show. You must be all caught up!</p>
+}
+else {
+    foreach(var todo in TodoState.Todos) {
+        <TaskItem @bind-Title="@todo.Title" @bind-IsDone="@todo.IsDone" OnDelete="() => TodoState.RemoveTodo(todo)" />
+    }
+}
