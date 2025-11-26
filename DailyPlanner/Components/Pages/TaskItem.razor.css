@@ -1,13 +1,10 @@
-* {
-    font-family: var(--task-font);
-}
-
 .container {
     display: flex;
     flex-direction: column; 
     padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    border: 1px solid lightgray;
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
     max-width: 650px;
     margin: 25px auto;
     background-color: var(--light);
@@ -37,8 +34,11 @@ img {
 
 .task-content > input:hover,
 .task-content > input:focus {
-    /* border: 1px solid var(--dark-base); */
     background-color: var(--very-light);
+}
+
+.task-content > input:focus {
+    outline: 1px solid var(--light-base);
 }
 
 .title {

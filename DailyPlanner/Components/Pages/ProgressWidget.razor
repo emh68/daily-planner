@@ -1,0 +1,11 @@
+@inject TodoState TodoState
+@rendermode InteractiveServer
+
+<div class="title-container">
+    <h3>Progress</h3>
+</div>
+
+<div class="progress-bars">
+    <p>Completed: @TodoState.PercentDone%</p>
+    <p>Not Started: @TodoState.PercentRemaining%</p>
+</div>

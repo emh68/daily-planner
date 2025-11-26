@@ -49,6 +49,7 @@
 
 .search-box > button {
     padding: 5px;
+    border-radius: 8px;
 }
 
 .date-link > p {

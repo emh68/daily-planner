@@ -26,3 +26,8 @@ p {
     margin: 100px auto;
     text-align: center;
 }
+
+.todo-list {
+    height: 100%;
+    overflow-y: auto;
+}

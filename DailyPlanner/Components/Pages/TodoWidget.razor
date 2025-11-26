@@ -10,7 +10,9 @@
     <p>Nothing to show. You must be all caught up!</p>
 }
 else {
-    foreach(var todo in TodoState.Todos) {
-        <TaskItem @bind-Title="@todo.Title" @bind-IsDone="@todo.IsDone" OnDelete="() => TodoState.RemoveTodo(todo)" />
-    }
+    <div class="todo-list">
+        @foreach(var todo in TodoState.Todos) {
+            <TaskItem @bind-Title="@todo.Title" @bind-IsDone="@todo.IsDone" OnDelete="() => TodoState.RemoveTodo(todo)" />
+        }
+    </div>
 }
