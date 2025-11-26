@@ -1,8 +1,8 @@
 @page "/todo"
-@using DailyPlanner
+@inject TodoState TodoState
 @rendermode InteractiveServer
 
-<h3>To-Do (@todos.Count(todo => !todo.IsDone))</h3>
+<h3>To-Do (@TodoState.GetUnfinished())</h3>
 
 <div class="new-todo-container">
     <input @bind="newTodo" placeholder="Enter a new task..." />
@@ -16,31 +16,22 @@
     </div>
 </div>
 
-<ul style="list-style-type: none;">
-    @foreach (var todo in todos)
-    {
-        <li>
-            <TaskItem @bind-Title="@todo.Title" @bind-IsDone="@todo.IsDone" OnDelete="() => DeleteTodo(todo)" />
-            @* <input @bind="todo.Title" /> *@
-        </li>
-    }
-</ul>
+@foreach (var todo in TodoState.Todos)
+{
+    <TaskItem @bind-Title="@todo.Title" @bind-IsDone="@todo.IsDone" OnDelete="() => TodoState.RemoveTodo(todo)" />
+}
 
 @code {
-    private List<TodoItem> todos = new();
-    private string newTodo = "";
 
-    private void AddTodo()
-    {
-        if (!string.IsNullOrWhiteSpace(newTodo))
-        {
-            todos.Add(new TodoItem { Title = newTodo });
-            newTodo = string.Empty;
-        }
+    public string newTodo = "";
+
+    public void AddTodo() {
+        TodoState.AddTodo(new TodoItem { Title = newTodo });
+        newTodo = string.Empty;
     }
 
-    private void DeleteTodo(TodoItem todo)
+    protected override void OnInitialized()
     {
-        todos.Remove(todo);
+        TodoState.OnChange += StateHasChanged;
     }
 }

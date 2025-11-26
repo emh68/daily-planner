@@ -21,6 +21,7 @@ body {
     color: var(--very-light);
     background-color: var(--light-base);
     border: none;
+    border-radius: 9999px;
 }
 
 .btn-primary:hover {
