@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DailyPlanner.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251201070156_TaskDescription")]
-    partial class TaskDescription
+    [Migration("20251201093811_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -53,7 +53,7 @@ namespace DailyPlanner.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tasks");
+                    b.ToTable("tasks", (string)null);
                 });
 
             modelBuilder.Entity("DailyPlanner.Models.User", b =>
@@ -78,7 +78,7 @@ namespace DailyPlanner.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("DailyPlanner.Models.TaskItem", b =>

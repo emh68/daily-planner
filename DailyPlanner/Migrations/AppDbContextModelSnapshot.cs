@@ -50,7 +50,7 @@ namespace DailyPlanner.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tasks", (string)null);
+                    b.ToTable("tasks", (string)null);
                 });
 
             modelBuilder.Entity("DailyPlanner.Models.User", b =>
@@ -75,7 +75,7 @@ namespace DailyPlanner.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("users", (string)null);
                 });
 
             modelBuilder.Entity("DailyPlanner.Models.TaskItem", b =>
