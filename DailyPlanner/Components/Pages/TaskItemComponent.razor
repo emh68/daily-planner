@@ -1,20 +1,19 @@
+@using DailyPlanner.Services
+@inject TaskService TaskService
+
 <div class="container">
     <div class="task-details">
         <div class="check-box">
-            <input type="checkbox" id="checkbox" checked="@IsDone" @onchange="OnDoneChange" />
-            <label for="checkbox"></label>
+            <input type="checkbox" id="checkbox-@Id" checked="@IsDone" @onchange="OnDoneChange" />
+            <label for="checkbox-@Id"></label>
         </div>
-        @* <div class="task-content">
-            <input @bind="_title" class="title" placeholder="Title (required)" />
-            <input @bind="_desc" class="description" placeholder="+ Add Description" />
-        </div> *@
+
         <div class="task-content">
             <input @bind="_title" class="title @(IsDone ? "completed" : "")" placeholder="Title (required)"
                 disabled="@IsDone" />
             <input @bind="_desc" class="description @(IsDone ? "description-completed" : "")"
                 placeholder="+ Add Description" disabled="@IsDone" />
         </div>
-        @* <img src=" https://picsum.photos/100/100" alt="Random photo" /> *@
     </div>
     <div class="button-container">
         <button class="btn btn-primary" @onclick="OnDeleteClick">Delete</button>
@@ -22,22 +21,16 @@
 </div>
 
 @code {
-    [Parameter]
-    public string Title { get; set; } = string.Empty;
-
-    [Parameter]
-    public EventCallback<string> TitleChanged { get; set; }
+    [Parameter] public int Id { get; set; }
+    [Parameter] public string Title { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> TitleChanged { get; set; }
 
     private string _title
     {
         get => Title;
         set
         {
-            if (value == null || value == "")
-            {
-                value = Title;
-            }
-            else if (Title != value)
+            if (!string.IsNullOrWhiteSpace(value) && Title != value)
             {
                 Title = value;
                 TitleChanged.InvokeAsync(value);
@@ -45,11 +38,8 @@
         }
     }
 
-    [Parameter]
-    public string Desc { get; set; } = string.Empty;
-
-    [Parameter]
-    public EventCallback<string> DescChanged { get; set; }
+    [Parameter] public string Desc { get; set; } = string.Empty;
+    [Parameter] public EventCallback<string> DescChanged { get; set; }
 
     private string _desc
     {
@@ -60,28 +50,27 @@
             {
                 Desc = value;
                 DescChanged.InvokeAsync(value);
+
+                _ = TaskService.UpdateDescription(Id, value);
             }
         }
     }
 
-    [Parameter]
-    public bool IsDone { get; set; }
+    [Parameter] public bool IsDone { get; set; }
+    [Parameter] public EventCallback<bool> IsDoneChanged { get; set; }
 
-    [Parameter]
-    public EventCallback<bool> IsDoneChanged { get; set; }
+    [Parameter] public EventCallback<int> OnToggle { get; set; }
+    [Parameter] public EventCallback<int> OnDelete { get; set; }
 
     private async Task OnDoneChange(ChangeEventArgs e)
     {
         IsDone = (bool)e.Value!;
         await IsDoneChanged.InvokeAsync(IsDone);
+        if (OnToggle.HasDelegate) await OnToggle.InvokeAsync(Id);
     }
-
-    [Parameter]
-    public EventCallback OnDelete { get; set; }
 
     private async Task OnDeleteClick()
     {
-        await OnDelete.InvokeAsync();
+        if (OnDelete.HasDelegate) await OnDelete.InvokeAsync(Id);
     }
-
 }

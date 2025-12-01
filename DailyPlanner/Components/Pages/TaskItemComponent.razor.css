@@ -1,6 +1,6 @@
 .container {
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     padding: 20px;
     border-radius: 20px;
     border: 1px solid lightgray;
@@ -25,19 +25,19 @@ img {
     flex-direction: column;
 }
 
-.task-content > input {
+.task-content>input {
     border-radius: 5px;
     margin-bottom: 10px;
     border: 1px solid transparent;
     background-color: var(--light);
 }
 
-.task-content > input:hover,
-.task-content > input:focus {
+.task-content>input:hover,
+.task-content>input:focus {
     background-color: var(--very-light);
 }
 
-.task-content > input:focus {
+.task-content>input:focus {
     outline: 1px solid var(--light-base);
 }
 

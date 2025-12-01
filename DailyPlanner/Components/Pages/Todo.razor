@@ -1,5 +1,8 @@
 @page "/todo"
+@using DailyPlanner.Models
+@using DailyPlanner.Services
 @inject TodoState TodoState
+@inject TaskService TaskService
 @rendermode InteractiveServer
 
 <h3>To-Do (@TodoState.GetUnfinished())</h3>
@@ -9,8 +12,10 @@
     <div class="button-container">
         <div class="options"></div>
         <button @onclick="AddTodo" class="btn btn-primary submit-button">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" stroke="white" class="bi bi-check2" viewBox="0 0 16 16">
-                <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0"/>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" stroke="white"
+                class="bi bi-check2" viewBox="0 0 16 16">
+                <path
+                    d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0" />
             </svg>
         </button>
     </div>
@@ -18,20 +23,42 @@
 
 @foreach (var todo in TodoState.Todos)
 {
-    <TaskItem @bind-Title="@todo.Title" @bind-IsDone="@todo.IsDone" OnDelete="() => TodoState.RemoveTodo(todo)" />
+    <TaskItemComponent Id="@todo.Id" @bind-Title="@todo.Title" @bind-Desc="@todo.Description"
+        @bind-IsDone="@todo.IsCompleted" OnDelete="DeleteTask" OnToggle="ToggleTask" />
 }
 
 @code {
+    private string newTodo = "";
+    private string entraUserId = "demo-user-id"; // placeholder
 
-    public string newTodo = "";
-
-    public void AddTodo() {
-        TodoState.AddTodo(new TodoItem { Title = newTodo });
-        newTodo = string.Empty;
+    protected override async Task OnInitializedAsync()
+    {
+        // Load tasks initially
+        TodoState.Todos = await TaskService.GetTasks(entraUserId);
     }
 
-    protected override void OnInitialized()
+    private async Task AddTodo()
     {
-        TodoState.OnChange += StateHasChanged;
+        if (!string.IsNullOrWhiteSpace(newTodo))
+        {
+            await TaskService.AddTask(entraUserId, newTodo);
+            TodoState.Todos = await TaskService.GetTasks(entraUserId);
+            newTodo = string.Empty;
+            TodoState.NotifyChange();
+        }
+    }
+
+    private async Task ToggleTask(int taskId)
+    {
+        await TaskService.ToggleComplete(taskId);
+        TodoState.Todos = await TaskService.GetTasks(entraUserId);
+        TodoState.NotifyChange();
+    }
+
+    private async Task DeleteTask(int taskId)
+    {
+        await TaskService.DeleteTask(taskId);
+        TodoState.Todos = await TaskService.GetTasks(entraUserId);
+        TodoState.NotifyChange();
     }
 }
