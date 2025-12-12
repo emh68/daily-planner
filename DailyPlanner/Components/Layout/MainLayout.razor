@@ -1,12 +1,12 @@
 ﻿@inherits LayoutComponentBase
 
-<nav>
+<nav aria-label="Navigation Sidebar">
     <div class="sidebar">
         <div class="sidebar-background"></div>
-        <a href="" class="profile-picture">
+        <a href="/" class="profile-picture">
             <img src="https://picsum.photos/120/120" alt="Profile picture" />
         </a>
-        <a href="" class="username">username</a>
+        <a href="/" class="username">username</a>
         <div class="nav-menu">
             <NavMenu />
         </div>
@@ -14,20 +14,20 @@
 </nav>
 <div class="page">
     <header class="top-row">
-        <a href="#" class="logo-link">
+        <a href="/" class="logo-link">
             <h1>
                 <span style="color: var(--light-base)">Daily</span><span>Planner</span>
             </h1>
         </a>
         <form class="search-box">
-            <input style="text" placeholder="Search tasks..." />
+            <input type="text" placeholder="Search tasks..." />
             <button class="btn btn-primary">
                 <img src="images/gui/search-glass.webp" alt="Search" />
             </button>
         </form>
         <a href="siteplan" class="date-link">
             <p class="date-day">@DateTime.Now.ToString("dddd")</p>
-            <p clase="date-long">@DateTime.Now.ToString("MMMM dd, yyyy")</p>
+            <p class="date-long">@DateTime.Now.ToString("MMMM dd, yyyy")</p>
         </a>
     </header>
     <main>
