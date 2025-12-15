@@ -1,5 +1,9 @@
 ﻿@page "/"
 @using DailyPlanner
+@using DailyPlanner.Services
+@using DailyPlanner.Models
+@inject TaskService TaskService
+@inject TodoState TodoState
 @rendermode InteractiveServer
 
 <PageTitle>Home</PageTitle>
@@ -14,6 +18,21 @@
         <ProgressWidget />
     </div>
     <div class="week-widget-container">
-    
+
     </div>
 </div>
+
+@code {
+    private string entraUserId = "demo-user-id";
+
+    protected override async Task OnInitializedAsync()
+    {
+        // If the state is empty load tasks from DB
+        if (TodoState.Todos.Count == 0)
+        {
+            TodoState.Todos = await TaskService.GetTasks(entraUserId);
+            // Notify widgets the data has arrived
+            TodoState.NotifyChange();
+        }
+    }
+}

@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DailyPlanner.Services
 {
+    // Handles all database interactions for tasks
     public class TaskService
     {
         private readonly IDbContextFactory<AppDbContext> _contextFactory;
@@ -76,7 +77,7 @@ namespace DailyPlanner.Services
             var user = await context.Users
                 .Include(u => u.Tasks)
                 .SingleOrDefaultAsync(u => u.EntraUserId == entraUserId);
-
+            // Return empty list if user is new
             return user?.Tasks.ToList() ?? new List<TaskItem>();
         }
 

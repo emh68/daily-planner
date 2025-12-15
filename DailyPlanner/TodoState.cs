@@ -2,12 +2,12 @@ using DailyPlanner.Models;
 
 namespace DailyPlanner;
 
+// Holds the state for the UI so widgets and pages stay synced
 public class TodoState
 {
-    private readonly SemaphoreSlim _lock = new(1, 1);
-
+    // Display list of tasks
     public List<TaskItem> Todos { get; set; } = new();
-
+    // Checks if a change occurred
     public event Action? OnChange;
 
     public void AddTodo(TaskItem item)
@@ -22,6 +22,7 @@ public class TodoState
         NotifyChange();
     }
 
+    // Count unfinished versus finished tasks
     public int GetUnfinished()
     {
         return Todos.Count(todo => !todo.IsCompleted);
@@ -32,6 +33,7 @@ public class TodoState
         return Todos.Count(todo => todo.IsCompleted);
     }
 
+    // Calculate precentages for progress widget
     public int PercentRemaining =>
         Todos.Count == 0 ? 0 :
         (int)Math.Round((Todos.Count - GetFinished()) * 100.0 / Todos.Count);
