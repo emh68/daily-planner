@@ -1,14 +1,14 @@
 # azure-pipelines.yml
 trigger:
-- main # Triggers the pipeline whenever code is pushed to the 'main' branch
+- main 
 
 pool:
   vmImage: 'windows-latest'
 
 variables:
   buildConfiguration: 'Release'
-  projectFile: 'DailyPlanner/DailyPlanner.csproj' # << ADJUST THIS PATH
-
+  projectFile: 'DailyPlanner/DailyPlanner.csproj' 
+  
 stages:
 - stage: Build
   displayName: Build and Publish Artifact
@@ -42,21 +42,26 @@ stages:
       inputs:
         pathToPublish: '$(Build.ArtifactStagingDirectory)'
         artifactName: 'drop'
-
+        
 - stage: Deploy
   displayName: Deploy to Azure App Service
+  # 🏆 FIX: Tell the Deploy stage to wait for the Build stage 
+  dependsOn: Build
+  
   jobs:
   - job: DeployJob
+    # Note: We removed the 'dependsOn: BuildJob' from here, as the stage dependency handles it.
     steps:
     - task: DownloadBuildArtifacts@1
+      displayName: 'Download Artifact'
       inputs:
         artifactName: 'drop'
         downloadPath: '$(System.DefaultWorkingDirectory)'
-
+        
     - task: AzureWebApp@1
       displayName: 'Azure Web App Deploy'
       inputs:
-        azureSubscription: 'DailyPlannerDevOpsSC' # << VERIFY THIS NAME
+        azureSubscription: 'DailyPlannerDevOpsSC' 
         appName: 'dailyplannercse325' 
         package: '$(System.DefaultWorkingDirectory)/drop/**/*.zip' 
-        appType: 'webApp' # Windows App Service
+        appType: 'webApp'
