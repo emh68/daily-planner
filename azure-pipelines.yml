@@ -1,0 +1,62 @@
+# azure-pipelines.yml
+trigger:
+- main # Triggers the pipeline whenever code is pushed to the 'main' branch
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  buildConfiguration: 'Release'
+  projectFile: 'DailyPlanner/DailyPlanner.csproj' # << ADJUST THIS PATH
+
+stages:
+- stage: Build
+  displayName: Build and Publish Artifact
+  jobs:
+  - job: BuildJob
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore'
+      inputs:
+        command: 'restore'
+        projects: '$(projectFile)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build'
+      inputs:
+        command: 'build'
+        projects: '$(projectFile)'
+        arguments: '--configuration $(buildConfiguration)'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish'
+      inputs:
+        command: 'publish'
+        publishWebProjects: false 
+        projects: '$(projectFile)'
+        arguments: '--configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        zipAfterPublish: true
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Upload Artifact'
+      inputs:
+        pathToPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: 'drop'
+
+- stage: Deploy
+  displayName: Deploy to Azure App Service
+  jobs:
+  - job: DeployJob
+    steps:
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        artifactName: 'drop'
+        downloadPath: '$(System.DefaultWorkingDirectory)'
+
+    - task: AzureWebApp@1
+      displayName: 'Azure Web App Deploy'
+      inputs:
+        azureSubscription: 'DailyPlannerDevOpsSC' # << VERIFY THIS NAME
+        appName: 'dailyplannercse325' 
+        package: '$(System.DefaultWorkingDirectory)/drop/**/*.zip' 
+        appType: 'webApp' # Windows App Service
