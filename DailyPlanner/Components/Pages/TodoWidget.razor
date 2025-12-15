@@ -1,6 +1,7 @@
 @using DailyPlanner.Services
 @inject TodoState TodoState
 @inject TaskService TaskService
+@implements IDisposable
 @rendermode InteractiveServer
 
 <div class="title-container">
@@ -24,7 +25,17 @@ else
 }
 
 @code {
-    private string entraUserId = "demo-user-id"; // same placeholder
+    private string entraUserId = "demo-user-id"; //same placeholder
+
+    protected override void OnInitialized()
+    {
+        TodoState.OnChange += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        TodoState.OnChange -= StateHasChanged;
+    }
 
     private async Task ToggleTodo(int taskId)
     {
@@ -32,6 +43,7 @@ else
         TodoState.Todos = await TaskService.GetTasks(entraUserId);
         TodoState.NotifyChange();
     }
+
 
     private async Task DeleteTodo(int taskId)
     {

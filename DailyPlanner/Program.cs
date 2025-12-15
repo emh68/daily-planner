@@ -18,8 +18,7 @@ builder.Services.AddScoped<TaskService>();
 builder.Services.AddScoped<TodoState>();
 
 // Add Razor Components and Interactive Server Components
-builder.Services.AddRazorComponents()
-    .AddInteractiveServerComponents();
+builder.Services.AddRazorComponents().AddInteractiveServerComponents();
 
 var app = builder.Build();
 
