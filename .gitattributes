@@ -1,1 +1,4 @@
+# Treat CSS and HTML as documentation so they don't skew language stats
 *.css linguist-documentation
+*.html linguist-documentation
+*.js linguist-documentation
