@@ -1,4 +1,7 @@
-# Treat CSS and HTML as documentation so they don't skew language stats
-*.css linguist-documentation
-*.html linguist-documentation
-*.js linguist-documentation
+# Force GitHub to treat all .razor and .cs files as the primary language
+*.razor linguist-language=C#
+*.cs linguist-language=C#
+
+# Tell GitHub to ignore CSS/HTML for statistics without calling them "docs"
+*.css linguist-detectable=false
+*.html linguist-detectable=false
